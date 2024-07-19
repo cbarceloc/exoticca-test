@@ -1,0 +1,24 @@
+import { TripModal } from 'src/entities/trips/TripModal';
+import { useTripsStore } from 'src/modules/trips/application/trips-store';
+import { Trip } from 'src/modules/trips/domain/Trip.Entity';
+import useToggleState from 'src/shared/lib/hooks/useToggleState';
+import Button from 'src/shared/ui/components/elements/Button';
+
+type Props = {
+  trip: Trip;
+};
+export default function EditTripButton({ trip }: Props) {
+  const [isModalOpen, toggleModal] = useToggleState(false);
+  const { editTrip } = useTripsStore();
+  function handleSave(tripParams: Omit<Trip, 'id' | 'isCompleted'>) {
+    toggleModal();
+    editTrip({ ...tripParams, id: trip.id });
+  }
+
+  return (
+    <>
+      <Button label="Edit" onClick={toggleModal} variant="text" className="bg-white text-black " />
+      <TripModal isOpen={isModalOpen} onSave={handleSave} trip={trip} onClose={toggleModal} />
+    </>
+  );
+}

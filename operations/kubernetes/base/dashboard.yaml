@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dashboard-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dashboard-app
+  template:
+    metadata:
+      labels:
+        app: dashboard-app
+      annotations:
+        sidecar.opentelemetry.io/inject: "true"
+    spec:
+      containers:
+        - name: dashboard-app
+          image: europe-docker.pkg.dev/sia-knows/sia-repository/dashboard:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              name: dash-port
+
+          livenessProbe:
+              failureThreshold: 5
+              httpGet:
+                path: /
+                port: dash-port
+              initialDelaySeconds: 30
+              timeoutSeconds: 10
+              periodSeconds: 15
+
+          volumeMounts:
+            - mountPath: /etc/nginx/conf.d # mount nginx-conf volumn to /etc/nginx
+              readOnly: true
+              name: nginx-conf
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: dashboard-nginx-conf # place ConfigMap `nginx-conf` on /etc/nginx
+            items:
+              - key: nginx.conf
+                path: default.conf
+
+
+

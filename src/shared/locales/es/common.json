@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "sources": "Fuentes",
+    "knowledge": "Conocimiento",
+    "search": "Buscar",
+    "logout": "Cerrar sesión"
+  },
+  "actions": {
+    "apply": "Aceptar",
+    "cancel": "Cancelar"
+  },
+  "error": {
+    "unknown_error": "Error desconocido",
+    "request_failed_error": "Error al realizar la solicitud"
+  }
+}

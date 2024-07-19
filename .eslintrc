@@ -1,0 +1,70 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "plugins": ["react", "@typescript-eslint", "unused-imports", "testing-library", "jsx-a11y"],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/self-closing-comp": [
+      "error",
+      {
+        "component": true,
+        "html": true
+      }
+    ],
+    "no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "react/no-unused-prop-types": "error",
+    "@typescript-eslint/no-unused-vars": [
+      "warn", // or "error"
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ],
+    "no-param-reassign": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error",
+    "testing-library/await-async-events": ["error", { "eventModule": "userEvent" }],
+    "testing-library/await-async-queries": "error",
+    "testing-library/await-async-utils": "error",
+    "testing-library/no-await-sync-events": ["error", { "eventModules": ["fire-event"] }],
+    "testing-library/no-await-sync-queries": "error",
+    "testing-library/no-container": "error",
+    "testing-library/no-debugging-utils": "warn",
+    "testing-library/no-dom-import": ["error", "react"],
+    "testing-library/no-global-regexp-flag-in-query": "error",
+    "testing-library/no-manual-cleanup": "error",
+    "testing-library/no-node-access": "error",
+    "testing-library/no-promise-in-fire-event": "error",
+    "testing-library/no-render-in-lifecycle": "error",
+    "testing-library/no-unnecessary-act": "error",
+    "testing-library/no-wait-for-multiple-assertions": "error",
+    "testing-library/no-wait-for-side-effects": "error",
+    "testing-library/no-wait-for-snapshot": "error",
+    "testing-library/prefer-find-by": "error",
+    "testing-library/prefer-presence-queries": "error",
+    "testing-library/prefer-query-by-disappearance": "error",
+    "testing-library/prefer-screen-queries": "error",
+    "testing-library/render-result-naming-convention": "error"
+  }
+}

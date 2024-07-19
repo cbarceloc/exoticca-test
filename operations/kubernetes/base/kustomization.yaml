@@ -1,0 +1,5 @@
+resources:
+- dashboard.yaml
+- dashboard-nginx.yaml
+- dashboard-service.yaml
+- dashboard-ingress.yaml

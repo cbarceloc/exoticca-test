@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "sources": "Sources",
+    "knowledge": "Knowledge",
+    "search": "Search",
+    "logout": "Logout"
+  },
+  "actions": {
+    "apply": "Apply",
+    "cancel": "Cancel"
+  },
+  "error": {
+    "unknown_error": "Unknown error",
+    "request_failed_error": "Request failed"
+  }
+}

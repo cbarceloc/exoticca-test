@@ -1,0 +1,12 @@
+version: '3.5'
+
+services:
+  dashboard:
+    image: dashboard:latest
+    container_name: dashboard
+    build:
+      context: ../..
+      dockerfile: ./operations/docker/Dockerfile
+    command: ['yarn', 'start:development']
+    ports:
+      - 8080:8080

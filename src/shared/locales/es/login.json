@@ -1,0 +1,8 @@
+{
+  "login_title": "Bienvenido",
+  "login_text": "Por favor, inicia sesión para continuar",
+  "forgot_password": "Olvidé mi contraseña",
+  "login_button": "Login",
+  "password": "Password",
+  "password_placeholder": "Ingrese su contraseña"
+}
