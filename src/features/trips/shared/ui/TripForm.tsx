@@ -50,7 +50,6 @@ export default function TripForm({ trip, onSave }: Props) {
   };
 
   const { handleSubmit, control } = methods;
-
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'itinerary',
@@ -63,19 +62,21 @@ export default function TripForm({ trip, onSave }: Props) {
     <>
       <FormProvider<FormValues> methods={methods}>
         <div className="space-y-5 mt-6 ">
-          <FormInput label="Name" name={'title'} placeholder={'Italy'} />
+          <FormInput label="Name" name={'title'} placeholder={'Italy'} id={'name'} />
           <FormTextArea
+            id="introduction"
             className="h-24"
             label="Introduction (max. 240 characters)"
             name={'introduction'}
             placeholder={'From Rome to Venice...'}
           />
           <FormTextArea
+            id="description"
             label="Description"
             name={'description'}
             placeholder={'A trip to Italy...'}
           />
-          <FormInput label="Image" placeholder="Image URL" name={'photoUrl'} />
+          <FormInput label="Image" placeholder="Image URL" name={'photoUrl'} id={'photoUrl'} />
           <div className="flex flex-row justify-between items-center">
             <FormLabel label="Day by day itinerary" />
             <IconButton
@@ -92,14 +93,22 @@ export default function TripForm({ trip, onSave }: Props) {
                   className="w-full"
                   name={`itinerary.${index}.day`}
                   options={Array.from({ length: 30 }, (_, i) => i + 1).map((day) => ({
-                    value: day.toString(),
+                    value: day,
                     label: day.toString(),
                   }))}
                 />
 
                 <div className=" flex-1 space-y-2 ">
-                  <FormInput name={`itinerary.${index}.location`} placeholder={'Location'} />
-                  <FormInput name={`itinerary.${index}.description`} placeholder={'Description'} />
+                  <FormInput
+                    name={`itinerary.${index}.location`}
+                    placeholder={'Location'}
+                    id={'itinerary-location'}
+                  />
+                  <FormInput
+                    name={`itinerary.${index}.description`}
+                    placeholder={'Description'}
+                    id={'itinerary-description'}
+                  />
                 </div>
 
                 <IconButton

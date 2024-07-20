@@ -11,26 +11,69 @@ export const tripSchema = z.object({
   itinerary: z.array(StopSchema).min(1, 'Trip must have at least one stop'),
   isCompleted: z.boolean(),
 });
+// .refine(
+//   (data) => {
+//     // check that any day is skipped or repited
+//     data.itinerary
+//       .map((stop) => stop.day)
+//       .toSorted()
+//       .reduce((prev, current) => {
+//         if (prev === current) {
+//           throw new Error('Days must be unique and ordered');
+//         }
+//         return current;
+//       });
+//     return true;
+//   },
+//   {
+//     message: 'Days must be unique and ordered',
+//   }
+// )
+
+//.innerType();
 
 export const tripsService = {
-  // --- create ---
+  createTrip(trip: Omit<Trip, 'id' | 'isCompleted'>): Trip {
+    return { ...trip, id: uuidv4(), isCompleted: false };
+  },
   loadTrips(trips: Trip[]): Trip[] {
     return trips;
   },
   addTrip(trips: Trip[], trip: Omit<Trip, 'id' | 'isCompleted'>): Trip[] {
-    return [...trips, { ...trip, id: uuidv4(), isCompleted: false }];
+    return [...trips, this.createTrip(trip)];
   },
-  editTrip(trips: Trip[], trip: Omit<Trip, 'isCompleted'>): Trip[] {
-    if (trips.find((t) => t.id === trip.id) === undefined) {
-      throw new Error(`Trip with id ${trip.id} not found`);
+  editTrip(trips: Trip[], editedTrip: Omit<Trip, 'isCompleted'>): Trip[] {
+    if (trips.find((trip) => trip.id === editedTrip.id) === undefined) {
+      throw new Error(`Trip with id ${editedTrip.id} not found`);
     }
-    return trips.map((t) => (t.id === trip.id ? { ...t, ...trip } : t));
+    return trips.map((trip) => (trip.id === editedTrip.id ? { ...trip, ...editedTrip } : trip));
   },
   deleteTrip(trips: Trip[], tripId: string): Trip[] {
-    if (trips.find((t) => t.id === tripId) === undefined) {
+    if (trips.find((trip) => trip.id === tripId) === undefined) {
       throw new Error(`Trip with id ${tripId} not found`);
     }
-    return trips.filter((t) => t.id !== tripId);
+    return trips.filter((trip) => trip.id !== tripId);
+  },
+  toggleTripCompletion(trips: Trip[], tripId: string): Trip[] {
+    if (trips.find((trip) => trip.id === tripId) === undefined) {
+      throw new Error(`Trip with id ${tripId} not found`);
+    }
+    return trips.map((trip) =>
+      trip.id === tripId ? { ...trip, isCompleted: !trip.isCompleted } : trip
+    );
+  },
+  getUpcomingTrips(trips: Trip[]): Trip[] {
+    return trips.filter((trip) => !trip.isCompleted);
+  },
+  getCompletedTrips(trips: Trip[]): Trip[] {
+    return trips.filter((trip) => trip.isCompleted);
+  },
+  searchTrips(trips: Trip[], searchText: string): Trip[] {
+    return trips.filter((trip) =>
+      [trip.title, trip.description, trip.introduction].some((field) => {
+        return field?.toLowerCase().includes(searchText.toLowerCase());
+      })
+    );
   },
 };
 export type Trip = z.infer<typeof tripSchema>;

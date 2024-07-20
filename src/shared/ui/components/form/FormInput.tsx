@@ -1,9 +1,11 @@
 import { HTMLInputTypeAttribute } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
+import Input from '../elements/Input';
 import FormError from './FormError';
 import { FormLabel } from './FormLabel';
 
 type Props = {
+  id: string;
   className?: string;
   label?: string;
   type?: HTMLInputTypeAttribute;
@@ -11,7 +13,7 @@ type Props = {
   placeholder?: string;
 };
 
-export default function FormInput({ label, type, name, className, placeholder }: Props) {
+export default function FormInput({ label, type, name, className, placeholder, id }: Props) {
   const { control } = useFormContext();
 
   return (
@@ -20,23 +22,21 @@ export default function FormInput({ label, type, name, className, placeholder }:
       control={control}
       render={({ field, fieldState }) => (
         <div className={`w-full ${className}`}>
-          <div className="flex justify-between ">{label && <FormLabel label={label} />}</div>
+          <div className="flex justify-between ">
+            {label && <FormLabel label={label} htmlFor={id} />}
+          </div>
           <div className="relative">
             <div
               className={` pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 `}
             />
-            <input
+            <Input
+              id={id}
               type={type}
               name={name}
               onChange={field.onChange}
               value={field.value}
-              className={` block w-full 
-              border-0 rounded-full py-1.5  shadow-sm ring-1 dark:ring-gray-500 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6 dark:bg-gray-800 dark:text-white ${
-                !!fieldState.error &&
-                'text-red-500 ring-red-500 dark:text-red-900 dark:ring-red-900'
-              }`}
+              hasError={!!fieldState.error}
               placeholder={placeholder}
-              aria-describedby="email-optional"
             />
             <FormError error={fieldState.error?.message} />
           </div>

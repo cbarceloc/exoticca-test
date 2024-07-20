@@ -7,13 +7,14 @@ type Props = {
   open: boolean;
   onClose: (open: boolean) => void;
   children: React.ReactNode;
+  className?: string;
 };
-function Modal({ open, onClose, children }: Props) {
+function Modal({ open, onClose, children, className }: Props) {
   const cancelButtonRef = useRef(null);
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={onClose}>
+      <Dialog as="div" className="relative z-10 " initialFocus={cancelButtonRef} onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -50,10 +51,11 @@ function Modal({ open, onClose, children }: Props) {
 type HeaderProps = {
   title: string;
   onClose: () => void;
+  className?: string;
 };
-function Header({ title, onClose }: HeaderProps) {
+function Header({ title, onClose, className }: HeaderProps) {
   return (
-    <div className="flex  justify-between">
+    <div className={`flex justify-between items-center ${className}`}>
       <Dialog.Title className={'mb-4 text-3xl font-semibold'}>{title}</Dialog.Title>
       <IconButton
         ariaLabel="Close"

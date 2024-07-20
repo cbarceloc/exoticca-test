@@ -7,9 +7,10 @@ type Props = {
   label?: string;
   name: string;
   placeholder?: string;
+  id: string;
 };
 
-export default function FormTextArea({ label, name, className, placeholder }: Props) {
+export default function FormTextArea({ label, name, className, placeholder, id }: Props) {
   const { control } = useFormContext();
 
   return (
@@ -18,12 +19,15 @@ export default function FormTextArea({ label, name, className, placeholder }: Pr
       control={control}
       render={({ field, fieldState }) => (
         <div className={`w-full ${className}`}>
-          <div className="flex justify-between ">{label && <FormLabel label={label} />}</div>
+          <div className="flex justify-between ">
+            {label && <FormLabel label={label} htmlFor={id} />}
+          </div>
           <div className="relative">
             <div
               className={` pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 `}
             />
             <textarea
+              id={id}
               name={name}
               onChange={field.onChange}
               value={field.value}

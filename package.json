@@ -10,13 +10,13 @@
     "build:development": "VITE_ENV=development vite build",
     "build:production": "VITE_ENV=production vite build",
     "build": "VITE_ENV=production vite build",
-    "test": "VITE_ENV=test echo 'No tests yet'",
+    "test": "VITE_ENVIRONMENT=test && vitest",
     "test:ui": "VITE_ENV=test vitest --ui",
     "vitest-preview": "VITE_ENV=test vitest-preview",
     "test:debug": "VITE_ENV=test npm-run-all -p  vitest-preview test"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.18",
+    "@headlessui/react": "^2.1.2",
     "@heroicons/react": "^2.0.18",
     "@hookform/resolvers": "^3.3.1",
     "@lukemorales/query-key-factory": "^1.3.2",

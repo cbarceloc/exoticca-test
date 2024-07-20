@@ -9,10 +9,10 @@ type Props = {
   trip?: Trip;
 };
 
-export function TripModal({ isOpen, onSave, trip, onClose }: Props) {
+export function TripFormModal({ isOpen, onSave, trip, onClose }: Props) {
   return (
     <Modal open={isOpen} onClose={onClose}>
-      <Modal.Header title={'Create trip'} onClose={onClose} />
+      <Modal.Header title={trip ? 'Edit trip' : 'New trip'} onClose={onClose} />
       <TripForm onSave={onSave} trip={trip} />
     </Modal>
   );

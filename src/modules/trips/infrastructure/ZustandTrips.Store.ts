@@ -27,6 +27,14 @@ export function createZustandTripsStore(initialTrips?: Trip[]): StoreApi<TripsSt
       set({ trips });
       return trips;
     },
+    toggleTripCompletion: (tripId: string) => {
+      const trips = tripsService.toggleTripCompletion(get().trips, tripId);
+      set({ trips });
+      return trips;
+    },
+    getUpcomingTrips: () => tripsService.getUpcomingTrips(get().trips),
+    getCompletedTrips: () => tripsService.getCompletedTrips(get().trips),
+    getSearchedTrips: (searchText: string) => tripsService.searchTrips(get().trips, searchText),
   }));
 
   return store;
