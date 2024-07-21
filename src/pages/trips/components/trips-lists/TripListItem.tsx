@@ -10,11 +10,11 @@ type Props = {
 
 export default function TripListItem({ trip, onClickShowTrip }: Props) {
   return (
-    <li className="flex flex-row w-full border-gray-200 border space-x-3 rounded-xl overflow-hidden ">
-      <div className="flex-1 flex h-full overflow-hidden">
-        <img src={trip.photoUrl} alt={trip.title} className=" object-cove w-full" />
+    <div className="flex flex-row w-full border-gray-200 border space-x-3 rounded-xl overflow-hidden">
+      <div className="flex-1 flex min-h-full flex-col bg-red-600 ">
+        <img src={trip.photoUrl} alt={trip.title} className=" object-cover h-full w-full" />
       </div>
-      <div className="flex-1 space-y-3 p-3">
+      <div className="flex flex-col flex-1 space-y-3 p-3">
         <h2 className="text-xl">{trip.title}</h2>
         <div className=" line-clamp-3	 ">{trip.introduction || trip.description}</div>
         <div className="flex justify-end">
@@ -25,6 +25,6 @@ export default function TripListItem({ trip, onClickShowTrip }: Props) {
           </>
         </div>
       </div>
-    </li>
+    </div>
   );
 }
