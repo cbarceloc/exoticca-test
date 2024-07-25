@@ -5,6 +5,7 @@
   "description": "Technical test for a job application",
   "private": true,
   "scripts": {
+    "start": "VITE_ENV=development vite",
     "start:development": "VITE_ENV=development vite",
     "start:local": "VITE_ENV=local vite",
     "build:development": "VITE_ENV=development vite build",
